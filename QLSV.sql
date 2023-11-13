@@ -88,17 +88,17 @@ SP_PKEYS KetQuaThi
 
 
 Insert INTO CT_DaoTao VALUES ('1',N'CỬ NHÂN')
-Insert INTO CT_Daotao VALUES ('2','Cao Đẳng')
-Insert INTO CT_Daotao VALUES ('3','Trung Cấp')
+Insert INTO CT_Daotao VALUES ('2',N'Cao Đẳng')
+Insert INTO CT_Daotao VALUES ('3',N'Trung Cấp')
 
 SELECT * 
 FROM Khoahoc
 
-Insert INTO Khoahoc VALUES ('1','1','Khóa 1 năm 2005')
-Insert INTO Khoahoc Values ('2','1','Khóa 2 năm 2006')
-Insert INTO Khoahoc values ('3','2','Khóa 1 năm 2007')
-insert INTO Khoahoc values ('4','3','Khóa 1 năm 2008')
-insert INTO Khoahoc values ('5','2','Khóa 2 năm 2008')
+INSERT INTO KhoaHoc VALUES ('1','1',N'KHÓA 1 NĂM 2005')
+INSERT INTO KhoaHoc VALUES ('2','1',N'KHÓA 2 NĂM 2006')
+INSERT INTO KhoaHoc VALUES ('3','2',N'KHÓA 1 NĂM 2007')
+INSERT INTO KhoaHoc VALUES ('4','3',N'KHÓA 1 NĂM 2008')
+INSERT INTO KhoaHoc VALUES ('5','2',N'KHÓA 2 NĂM 2008')
 
 
 select*
@@ -110,37 +110,37 @@ insert INTO Lop values	('4','2','K1_2')
 select*
 from MonHoc
 
-Insert INTO   MonHoc VALUES ('TH101','Tin học đại cương')
-Insert INTO  MonHoc VALUES ('TH110','Toán rời rạc')
-Insert INTO  MonHoc VALUES ('TH102','Cơ sở dữ liệu')
+INSERT INTO MonHoc VALUES ('TH101',N'TIN HỌC ĐẠI CƯƠNG')
+INSERT INTO MonHoc VALUES ('TH110',N'TOÁN RỜI RẠC')
+INSERT INTO MonHoc VALUES ('TH102',N'CƠ SỞ DỮ LIỆU')
 
 SET DATEFORMAT DAY
 
 SELECT * 
 FROM CT_DAOTAO
 SET DATEFORMAT DMY 
-Insert INTO  SinhVien VALUES ('K116','Đinh Nguyễn Vân Anh',N'Nữ','18/12/1985','Bình Thuận','1')
-Insert INTO  SinhVien VALUES ('K117','Trần Hoàng Anh','Nữ','4/8/1986','Bình Dương','1')
-Insert INTO  SinhVien VALUES ('K118','Bùi Thanh Bình','Nam','23/10/1985','Đồng Nai','1')
-Insert INTO  SinhVien VALUES ('K119','Phạm Nhật Tân','Nam','15/1/1985','Bình Tháp','2')
-Insert INTO  SinhVien VALUES ('K120','Định Thiện Hòa','Nam','8/12/1985','Vĩnh Long','3')
-Insert INTO  SinhVien VALUES ('K121','Nguyễn Anh Khoa','Nam','14/11/1986','Vũng Tàu','3')
-Insert INTO  SinhVien VALUES ('K122','Trương Mộng Thúy','Nữ','12/5/1986','Cần Thơ','2')
-Insert INTO  SinhVien VALUES ('K123','Võ Anh Thi','Nữ','23/5/1986','Bến Tre','2')
+INSERT INTO SinhVien VALUES ('K116',N'ĐINH NGUYỄN VÂN ANH',N'Nữ','1985-12-18',N'BÌNH THUẬN ','1')
+INSERT INTO SinhVien VALUES ('K117',N'TRẦN HOÀNG ANH',N'Nữ','1986-8-4',N'BÌNH DƯƠNG ','1')
+INSERT INTO SinhVien VALUES ('K118',N'BÙI THANH BÌNH',N'NAM','1985-10-23',N'ĐỒNG NAI ','1')
+INSERT INTO SinhVien VALUES ('K119',N'PHẠM NHẬT TÂN',N'NAM','1985-1-15',N'ĐỒNG THÁP ','2')
+INSERT INTO SinhVien VALUES ('K120',N'ĐINH THIỆN HÒA',N'NAM','1985-12-8',N'VĨNH LONG ','3')
+INSERT INTO SinhVien VALUES ('K121',N'NGUYỄN ANH KHOA',N'NAM','1985-11-14',N'VŨNG TÀO ','3')
+INSERT INTO SinhVien VALUES ('K122',N'TRƯƠNG MỘNG THUÝ',N'Nử','1986-12-15',N'CẦN THƠ  ','2')
+INSERT INTO SinhVien VALUES ('K123',N'VÕ ANH THI',N'Nữ','1986-5-23',N'BẾN TRE ','2')
+
 
 Select *
 from KetQuaThi
 
-Insert INTO  KetQuaThi VALUES (' K116','TH101','1','8')
-Insert INTO  KetQuaThi VALUES (' K117','TH101','1','4')
-Insert INTO  KetQuaThi VALUES (' K118','TH101','1','6.5')
-Insert INTO  KetQuaThi VALUES (' K119','TH102','1','5')
-Insert INTO  KetQuaThi VALUES (' K120','TH102','1','7')
-Insert INTO  KetQuaThi VALUES (' K121','TH110','1','7')
-Insert INTO  KetQuaThi VALUES (' K122','TH102','1','9')
-Insert INTO  KetQuaThi VALUES (' K119','TH101','1','6')
-Insert INTO  KetQuaThi VALUES (' K120','TH101','1','5')
-Insert INTO  KetQuaThi VALUES (' K102','TH102','1','7.5')
-Insert INTO  KetQuaThi VALUES (' K11','TH101','1','7')
+INSERT INTO KetQuaThi VALUES ('K116','TH101','1','8')
+INSERT INTO KetQuaThi VALUES ('K117','TH101','1','4')
+INSERT INTO KetQuaThi VALUES ('K118','TH101','1','6.5')
+INSERT INTO KetQuaThi VALUES ('K119','TH102','1','5')
+INSERT INTO KetQuaThi VALUES ('K120','TH102','1','7')
+INSERT INTO KetQuaThi VALUES ('K116','TH110','1','7')
+INSERT INTO KetQuaThi VALUES ('K118','TH102','1','9')
+INSERT INTO KetQuaThi VALUES ('K119','TH101','1','6')
+INSERT INTO KetQuaThi VALUES ('K116','TH102','1','7.5')
+
 
 
