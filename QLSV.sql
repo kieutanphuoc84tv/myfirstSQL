@@ -1,5 +1,5 @@
-Create Database CT_DAOTAO
-Use CT_DAOTAO
+Create Database QUANLYSV
+Use QUANLYSV
 
 
 Create table CT_Daotao
@@ -114,23 +114,20 @@ INSERT INTO MonHoc VALUES ('TH101',N'TIN HỌC ĐẠI CƯƠNG')
 INSERT INTO MonHoc VALUES ('TH110',N'TOÁN RỜI RẠC')
 INSERT INTO MonHoc VALUES ('TH102',N'CƠ SỞ DỮ LIỆU')
 
-SET DATEFORMAT DAY
 
-SELECT * 
-FROM CT_DAOTAO
-SET DATEFORMAT DMY 
-INSERT INTO SinhVien VALUES ('K116',N'ĐINH NGUYỄN VÂN ANH',N'Nữ','1985-12-18',N'BÌNH THUẬN ','1')
-INSERT INTO SinhVien VALUES ('K117',N'TRẦN HOÀNG ANH',N'Nữ','1986-8-4',N'BÌNH DƯƠNG ','1')
-INSERT INTO SinhVien VALUES ('K118',N'BÙI THANH BÌNH',N'NAM','1985-10-23',N'ĐỒNG NAI ','1')
-INSERT INTO SinhVien VALUES ('K119',N'PHẠM NHẬT TÂN',N'NAM','1985-1-15',N'ĐỒNG THÁP ','2')
-INSERT INTO SinhVien VALUES ('K120',N'ĐINH THIỆN HÒA',N'NAM','1985-12-8',N'VĨNH LONG ','3')
-INSERT INTO SinhVien VALUES ('K121',N'NGUYỄN ANH KHOA',N'NAM','1985-11-14',N'VŨNG TÀO ','3')
-INSERT INTO SinhVien VALUES ('K122',N'TRƯƠNG MỘNG THUÝ',N'Nử','1986-12-15',N'CẦN THƠ  ','2')
-INSERT INTO SinhVien VALUES ('K123',N'VÕ ANH THI',N'Nữ','1986-5-23',N'BẾN TRE ','2')
+Set Dateformat DMY
 
+Insert into SinhVien Values ( 'K116', N'Đinh Nguyễn Vân Anh', N'Nữ', '18/12/1985', N'Bình Thuận','1')
+Insert into SinhVien Values ( 'K117', N'Trần Hoàng Anh', N'Nữ', '04/08/1986', N'Bình Dương', '1')
+Insert into SinhVien Values ( 'K118', N'Bùi Thanh Bình', N'Nam', '23/10/1985', N'Đồng Nai', '1')
+Insert into SinhVien Values ( 'K119', N'Phạm Nhật Tân', N'Nam', '15/01/1985', N'Đồng Tháp', '2')
+Insert into SinhVien Values ( 'K120', N'Định Thiện Hòa', N'Nam', '08/12/1985', N'Vĩnh Long', '3')
+Insert into SinhVien Values ( 'K121', N'Nguyễn Anh Khoa', N'Nam', '14/11/1985', N'Vũng Tàu', '3')
+Insert into SinhVien Values ( 'K122', N'Trương Mộng Thúy', N'Nữ', '12/05/1986', N'Cần Thơ', '2')
+Insert into SinhVien Values ( 'K123', N'Võ Anh Thi', N'Nữ', '23/05/1986', N'Bến Tre', '2')
+select*
+From SinhVien
 
-Select *
-from KetQuaThi
 
 INSERT INTO KetQuaThi VALUES ('K116','TH101','1','8')
 INSERT INTO KetQuaThi VALUES ('K117','TH101','1','4')
@@ -141,6 +138,80 @@ INSERT INTO KetQuaThi VALUES ('K116','TH110','1','7')
 INSERT INTO KetQuaThi VALUES ('K118','TH102','1','9')
 INSERT INTO KetQuaThi VALUES ('K119','TH101','1','6')
 INSERT INTO KetQuaThi VALUES ('K116','TH102','1','7.5')
+INSERT INTO KetQuaThi VALUES ('K120','TH101','1','5')
+INSERT INTO KetQuaThi VALUES ('K117','TH101','2','7.5')
 
+SELECT * 
+FROM CT_Daotao
+SELECT * 
+FROM Khoahoc
+select*
+from MonHoc
+select*
+from Lop
+select*
+From SinhVien
+select*
+From KetQuaThi
 
-
+--1.thêm dòng cột sinh viên cột ghi chú 
+alter table SinhVien add GhiChu nvarchar (50)
+--2. thêm bảng môn học bộ giá trị TH112,Kiến Trúc Máy TÍnh
+insert into MonHoc values ('TH112',N'Kiến trúc máy tính')
+--3. bảng kết quả thi, sửa điểm thi kết quả của môn học TH101 của sinh viên có mã số k116 thành 7.5
+update KetQuaThi set DiemThi ='7.5' where MaSV='K116' and MaMH='TH101'
+--4.liệt kê mã sinh viên ,họ tên của tất cả sinh viên
+select MaSV, Hoten
+from SinhVien
+--5. Liệt Kê danh sách các môn học
+select TenMH
+from MonHoc
+--6.in ra danh sách sinh viên lớp 'K1_1"
+select *
+from SinhVien,Lop
+where SinhVien.MaLop=Lop.MaLop
+and TenLop='K1_1'
+--7. in ra danh sách sv năm 1985
+select * 
+from SinhVien 
+Where year (NgaySinh)='1985'
+--8. in ra dssv thuộc chương trình đào tạo "cử nhân'
+select *
+ from SinhVien p,Lop L,CT_Daotao ct,KhoaHoc kh
+ where p.MaLop=L.MaLop and L.MaKH=kh.MaKH and kh.MaCTDT=ct.MaCTDT
+ --9. Liệt kê mssv họ tên cùng với điểm thi của môn "Tin học đại cương"
+ select  Hoten, DiemThi, kqt.MaSV
+from Monhoc mh, KetQuaThi kqt, SinhVien sv
+where sv.MaSV=kqt.MaSV
+and kqt.MaMH=mh.MaMH
+and TenMH = N'Tin học đại cương'
+--10.cho biết số lượng sinh viên của lớp "K3_1"
+select COUNT(MaSV) as Soluong_SV
+from Lop l,SinhVien s
+where s.MaLop=l.MaLop
+and TenLop='K3_1'
+--11.cho biết số lượng sinh viên từng lớp
+select COUNT(MaSV) as Soluong_SV
+from SinhVien s
+group by Malop
+--12.thống kê số lượng sinh viên theo giới tính
+SELECT Gioitinh, COUNT(MaSV) as Soluong_SV
+ from SinhVien s
+group by GioiTinh
+--13.Thống kê số lương sinh viên theo nơi sinh
+SELECT Noisinh, COUNT(MaSV) as Soluong_SV
+ from SinhVien s
+group by Noisinh
+--14.Thống kê số lượng sinh viên theo từng chương trình đào tạo
+SELECT ct.TenCTDT, COUNT(MaSV) as Soluong_SV
+ from Khoahoc k ,SinhVien sv ,Lop l ,CT_Daotao ct
+ where SV.MaLop=L.Malop
+ and l.MaKH = k.MaKH
+ and k.MaCTDT=ct.MaCTDT
+group by TenCTDT
+--19.Liệt kê tên sinh viên cùng tên môn học học sinh viên phải thi 2 lần trở lên
+ select  Hoten, TenMH, kqt.LanThi
+from Monhoc mh, KetQuaThi kqt, SinhVien sv
+where sv.MaSV=kqt.MaSV
+and kqt.MaMH=mh.MaMH
+and LanThi>=2
