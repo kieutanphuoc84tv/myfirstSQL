@@ -130,6 +130,101 @@ Insert into PhanCong Values ( '002', 'DT002', '10')
 Insert into PhanCong Values ( '003', 'TH001', '37.5')
 Insert into PhanCong Values ( '004', 'DT001', '22.5')
 Insert into PhanCong Values ( '004', 'TH001', '30')
+
+
+
+
+  --truy vấn--
+--//1.Tìm những nhân viên sinh từ 1965 đến 1970\\--
+select *
+from NhanVien
+where YEAR (NgSinh) between 1965 and 1970
+--//2.Tìm họ tên NV và tên phòng ban NV đó trực thuộc có sức mức lương từ 2.000.000 đến 3.000.000\\--
+select nv.HoNV, nv.TenLot, nv.TenNV, pb.TenPB
+from NhanVien nv, PhongBan pb
+where nv.Phong=pb.MaPB
+and Luong >= 2000000 and Luong<= 3000000
+--//3.Tìm những nhân viên có họ tên "Nguyen" hoặc tên bắt đầu có chữ "T"
+select *
+from NhanVien
+where HoNV= N'Nguyễn' or TenNV like N'T%'
+--//4.Tìm những NV thuộc một trong các phòng ban có mã là "NC"hoặc"QL"\\--
+select *
+from NhanVien nv, PhongBan pb
+where nv.Phong=pb.MaPB
+and nv.Phong='NC' or nv.Phong='QL'
+--//5.Lập DS thân dưới 18 tuổi các nhân viên\\--
+select*
+from ThanNhan
+where 2023 - YEAR(NgSinh)<18
+--//6.in DSSV nữ trên 30 tuổi\\--
+select*
+from NhanVien
+where 2023 - YEAR(NgSinh)>30
+and Phai=N'Nữ'
+--///7.Tìm tên và địa chỉ nhân viên thuộc phòng "nghiên cứu"\\--
+select nv.TenNV, nv.DiaChi, nv.Phong, pb.TenPB
+from NhanVien nv,PhongBan pb
+where nv.Phong=pb.MaPB and TenPB=N'Nghiên Cứu'
+--//8.Tìm mã số và tên những viên thuộc phòng 'nghiên cứu'tham gia đề án'Tin học hóa' với thời gian làm việc 20 giờ/tuần\\--
+select*
+from NhanVien nv, DeAn da, PhongBan pb,PhanCong pc
+where nv.Phong=pb.MaPB and pb.TenPB=N'Nghiên cứu'
+and da.MaDA=pc.MaDA and da.TenDA like N'Tin Học Hóa %'
+and nv.MaNV=pc.MaNV and pc.ThoiGian in('20')
+--//9.Tìm họ tên trưởng phòng đã chủ trì các đề án ở Hà Nội\\--
+select nv.HoNV, nv.TenLot, nv.TenNV
+from NhanVien nv, PhongBan pb,DeAn da
+where nv.Phong=pb.MaPB
+and pb.MaPB=da.Phong
+and da.DiaDiemDA=N'Hà Nội' and MaNQL=001
+--//10.Tìm những NV "Nguyễn Than Tùng" trực tiếp phụ trách\\--
+select*
+from NhanVien nv
+where MaNQL='002'
+--//11.Tính thời gian thấp nhất, thời gian cao nhất trung bình và só giờ làm việc trong tuần của tất cả các nhân viên khác\\--
+select Min (Thoigian) AS ThoiGianThapNhat,  
+      max (ThoiGian) AS ThoiGianCaoNhat,
+	  avg (ThoiGian) AS ThoiGianTrungBinh,
+	  SUM (ThoiGian) AS TongThoiGian
+									From PhanCong
+
+--//12.Tính thời gian làm việc trung bình trong tuần của các nhân viên\\--
+select avg (ThoiGian) as ThoiGianTrungBinh
+From PhanCong
+--//13.Tìm Họ tên nhân viên có mức lương trên mức lương trung bình của phòng'nghiên cứu'\\--
+select HoNV, TenNV
+from NhanVien
+where Luong>(
+				select AVG (Luong)
+				From NhanVien
+				where Phong ='NC'
+				)
+--//14.Tìm số lượng sinh viên của tất cả các phòng ban\\--
+select MaPB, count(*) as SoLuongNhanVien
+from NhanVien, PhongBan
+group by MaPB
+--//15.Tính số lượng nhân viên chịu sự quản lý trực tiếp của người khác\\--
+select COUNT(*) SLNV
+from NhanVien
+where MaNQL IS NOT NULL
+--//16.Tính só lương nhân viên\\--
+select MaNQL, count (MaNV) as Slg_QL
+from NhanVien
+where MaNQL like '00%'
+group by MaNQL
+--//17.Tính slg nv của từng phòng 
+select pb.MaPB, count (MaNV) as Slg_NV
+from NhanVien nv, PhongBan pb
+where nv.Phong=pb.MaPB
+GROUP BY MaPB
+--//18.Tính thời gian tham gia đề án cao nhất, thấp nhất, trung bình của tất cả nhân viên trong từng phòng ban\\--
+select nv.Phong,Max(ThoiGian) as max_time, MIN(ThoiGian) as min_time, AVG(ThoiGian) as TB_time
+FROM NhanVien NV, PhanCong PC
+WHERE NV.MaNV=PC.MaNV
+group by Phong
+
+
 Insert into PhanCong Values ( '006', 'TH001', '30')
 Insert into PhanCong Values ( '007', 'TH001', '30')
 Insert into PhanCong Values ( '007', 'TH001', '30')
